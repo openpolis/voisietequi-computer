@@ -6,11 +6,15 @@
 
 # Update system's packages ---------------------------------------------------
 if [ ! -e /home/vagrant/.system-updated ]; then
+  # add some backports (to install python-pip last version)
+  cat << EOF | sudo tee /etc/apt/sources.list.d/backports.list
+  deb http://backports.debian.org/debian-backports squeeze-backports main
+EOF
 
   echo "Updating the system's package references. This can take a few minutes..."
   sudo apt-get -y update
   sudo apt-get -y install make curl gettext
-  sudo apt-get -y install g++ build-essential  # Needed to compile some Python packages
+  sudo apt-get -y install g++ gfortran build-essential  # Needed to compile some Python packages
 
 
   # Make sure the system uses UTF-8 so that PostgreSQL does too.

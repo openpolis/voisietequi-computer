@@ -8,7 +8,6 @@ app-pkgs:
       - liblapack-dev
       - libatlas-base-dev
       - libxml2-dev
-      - octave
 
 /home/vagrant/.venvs/vsq_computer:
   virtualenv.manage:
@@ -18,13 +17,18 @@ app-pkgs:
     - require:
       - pkg: app-pkgs
 
-oct2py:
+
+numpy:
   pip.installed:
-    - name: oct2py
     - bin_env: /home/vagrant/.venvs/vsq_computer
     - require:
-      - pkg: python-scipy
+      - pkg: app-pkgs
 
+scipy:
+  pip.installed:
+    - bin_env: /home/vagrant/.venvs/vsq_computer
+    - require:
+      - pip: numpy
 
 /vagrant/log:
   file.directory:
