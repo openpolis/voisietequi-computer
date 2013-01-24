@@ -1,0 +1,16 @@
+id,denominazione,party_key,sigla,responsabile_nome,responsabile_mail,risposte_ok,risposte_data,site,ancora
+1,"Partito Democratico",PD443,PD,,NULL,1,NULL,www.partitodemocratico.it,PD
+2,"Lega Nord",LN469,Lega,"ufficio segreteria politica lega nord",NULL,1,2008-03-20,www.leganord.org,
+3,"Popolo della Libertà",PDL988,PdL,"on. Antonio Palmieri",NULL,1,2008-03-18,www.ilpopolodellaliberta.it,
+4,"La Sinistra, l'Arcobaleno",SA526,SA,,NULL,1,2008-03-20,www.sinistrarcobaleno.it,
+5,"Unione di Centro",UDC105,UdC,,NULL,1,NULL,www.udc-italia.it,
+6,"La Destra (orig)",DX481,Dx,,NULL,0,2008-03-25,www.la-destra.it,
+7,"Partito Socialista",PS210,PS,"on. Enrico Boselli",NULL,1,2008-03-19,www.partitosocialista.it,
+8,"Italia dei Valori",IDV306,IdV,Occhiello,NULL,1,2008-03-19,www.italiadeivalori.it,
+9,"Partito Comunista dei Lavoratori",PCDL033,PCdL,"Francesco Grisolia",NULL,1,2008-03-20,www.pclavoratori.it,
+10,"Unione Democratica dei Consumatori",UDC006,UDCons,,NULL,0,NULL,unionedemocratica.italiavota.it,
+11,"Sinistra Critica",SC497,SC,"salvatore cannavò",NULL,1,2008-03-22,www.sinistracritica.org,
+12,"Partito Liberale Italiano",PLI955," PLI",,NULL,0,NULL,www.partitoliberale.it,
+13,"Forza Nuova",FN264,FN,,NULL,0,NULL,www.forzanuova.org,
+14,"Per il bene comune",PBC176,PBC,"Stefano Montanari",NULL,1,2008-03-18,www.perilbenecomune.net,
+16,"La Destra",DX27,Destra,"Non specificato",NULL,1,NULL,www.la-destra.it,NULL
