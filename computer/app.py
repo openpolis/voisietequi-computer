@@ -33,25 +33,24 @@ class compute(object):
                 'user_answers',
                 'user_data',
             )
-
-            if 'name' not in input.user_data:
-                raise web.BadRequest("User name field not found")
-
-            if 'email' not in input.user_data:
-                raise web.BadRequest("User email field not found")
-            elif not helpers.regexp(r"[^@]+@[^@]+\.[^@]+",input.user_data['email']):
-                raise web.BadRequest("User email is invalid")
-
-            if not isinstance(input.user_answers, dict) \
-                or len(input.user_answers) != len(current_status.questions) \
-                or set(input.user_answers) != current_status.questions:
-
-                raise web.BadRequest("User have to answer to all questions")
-
-            user_answers = current_status.prepare_answers(input.user_answers)
-
-        except KeyError:
+        except KeyError: # can be raised from storify if miss some required fields
             raise web.BadRequest
+
+        if 'name' not in input.user_data:
+            raise web.BadRequest("User name field not found")
+
+        if 'email' not in input.user_data:
+            raise web.BadRequest("User email field not found")
+        elif not helpers.regexp(r"[^@]+@[^@]+\.[^@]+",input.user_data['email']):
+            raise web.BadRequest("User email is invalid")
+
+        if not isinstance(input.user_answers, dict) \
+            or len(input.user_answers) != len(current_status.questions) \
+            or set(input.user_answers) != current_status.questions:
+
+            raise web.BadRequest("User have to answer to all questions")
+
+        user_answers = current_status.prepare_answers(input.user_answers)
 
         # execute mds calculation
         # TODO: execute can raise an Exception
@@ -68,6 +67,12 @@ class compute(object):
         ccode = helpers.md5(input.user_data['name']+input.user_data['email']+input.user_data['ip_address'])
 
         # TODO: send results to rabbit with user-data (email,name,ip,referral)
+        print "to rabbit: ", {
+            'user_data': input.user_data,
+            'user_answers': input.user_answers,
+            'results': results,
+            'code': ccode,
+        }
 
         # prepare json response
         web.header('Content-Type', 'application/json')
