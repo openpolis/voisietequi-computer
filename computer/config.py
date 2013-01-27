@@ -47,7 +47,7 @@ read_env(REPOSITORY_PATH)
 # init configurations
 DEBUG = bool_var('DEBUG')
 ELECTION_CODE = var('VSQ_ELECTION_CODE')
-DB_PATH = var('VSQ_DBPATH',':memory:')
+STATUS_PATH = var('VSQ_STATUS_PATH', os.path.join(REPOSITORY_PATH,'status.pickle.dump'))
 MQ_HOST= var('MQ_HOST')
 MQ_USER= var('MQ_USER')
 MQ_PASSWORD= var('MQ_PASSWORD')
