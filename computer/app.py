@@ -20,6 +20,9 @@ class compute(object):
         Input data is a json string, passed as POST request payload.
         """
 
+        if not current_status.is_configured:
+            raise web.InternalError("Computer is not configured")
+
         # read json input
         try:
             # emulate web.input with storify of json decoded POST data
