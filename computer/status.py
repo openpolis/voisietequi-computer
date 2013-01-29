@@ -1,4 +1,5 @@
 import config
+from datetime import datetime
 try:
     import cPickle as pickle
 except ImportError:
@@ -16,6 +17,7 @@ class ComputerStatus(object):
         self.parties = list()
         self.questions = set()
         self.is_configured = False
+        self.last_update = None
 
         print "#" * 10, "ComputerStatus(%s)" % election_code, "#" * 10
         self.load()
@@ -70,6 +72,7 @@ class ComputerStatus(object):
             self.parties.append( party ) # int(party)
 
         self.is_configured = True
+        self.last_update = datetime.now()
         print "Status loaded"
 
 
