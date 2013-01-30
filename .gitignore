@@ -1,5 +1,6 @@
 .idea
 .vagrant
+.env
 *.py[cod]
 
 # C extensions
