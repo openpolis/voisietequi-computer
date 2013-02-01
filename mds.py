@@ -1,13 +1,14 @@
+"""
+Dal post:
+http://a-ma.us/wp/2012/04/multidimensional-scaling/
+"""
+
 from numpy import *
 import scipy.linalg
 import csv
 from datetime import datetime
 import json
 
-"""
-Dal post:
-http://a-ma.us/wp/2012/04/multidimensional-scaling/
-"""
 
 def centering_matrix(n):
     """
@@ -48,9 +49,9 @@ def read_risposte_from_csv(csv_risposte):
     """
     lettura risposte partiti dal csv
     """
-
+    import os
     try:
-        csv_in = open(csv_risposte, 'rb')
+        csv_in = open(os.path.join(os.path.dirname(__file__), csv_risposte), 'rb')
         r_reader = csv.DictReader(csv_in, delimiter=',')
     except IOError:
         print "It was impossible to open file %s" % csv_risposte
@@ -98,7 +99,7 @@ def normalize_coords(coords):
 
     x_range = max_x - min_x
     y_range = max_y - min_y
-
+    print 'coords:', coords
     norm_coords = map(lambda x: ["%d" % x[0],
                                  "%.3f" % ((x[1]-min_x)/x_range),
                                  "%.3f" % ((x[2]-min_y)/y_range)], coords)
@@ -113,6 +114,8 @@ def main():
     rps = read_risposte_from_csv(csv_risposte)
 
     t0 = datetime.now()
+
+    print 'rps',rps
     # costruisce array partiti e matrice delle posizioni
     (partiti, posizioni) = get_partiti_posizioni(rps)
 
