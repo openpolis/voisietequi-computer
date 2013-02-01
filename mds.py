@@ -1,6 +1,5 @@
 from numpy import *
 import scipy.linalg
-import random
 import csv
 from datetime import datetime
 import json
