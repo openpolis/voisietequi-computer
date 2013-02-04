@@ -6,12 +6,12 @@ urls = (
     '/computation/?', 'compute',
 )
 
+if config.DEBUG:
+    urls += ('/configuration/?','configuration')
 
 web.config.debug = config.DEBUG
 app = web.application(urls, globals())
 current_status = status.ComputerStatus(config.ELECTION_CODE)
-#current_status.save({"1": {"1": 3, "2": 3, "3": -1, "4": -1, "5": 2, "6": 1, "7": 3, "8": 2, "9": -2, "10": 2, "11": 2, "12": 1, "13": 1, "14": -1, "15": 2, "16": 2, "17": 2, "18": 1, "19": 1, "20": -1, "21": -2, "22": 1, "23": 2, "24": 1, "25": 2}, "2": {"1": 2, "2": 1, "3": 1, "4": 3, "5": -1, "6": -1, "7": -3, "8": 2, "9": 3, "10": 3, "11": 2, "12": -1, "13": -3, "14": -3, "15": 3, "16": 3, "17": 1, "18": -2, "19": -3, "20": 3, "21": 1, "22": 2, "23": 2, "24": -3, "25": 2}, "3": {"1": 2, "2": 2, "3": 1, "4": 3, "5": -1, "6": -1, "7": -1, "8": -2, "9": 3, "10": 3, "11": -2, "12": 1, "13": -2, "14": -2, "15": 2, "16": 2, "17": 2, "18": -2, "19": 1, "20": 2, "21": 2, "22": 2, "23": 3, "24": 2, "25": 1}, "4": {"1": 3, "2": 3, "3": -3, "4": -1, "5": 3, "6": 3, "7": 2, "8": 3, "9": -1, "10": 3, "11": 3, "12": 3, "13": 3, "14": 3, "15": 3, "16": -3, "17": -3, "18": 2, "19": -3, "20": -3, "21": -3, "22": -3, "23": -3, "24": -1, "25": 3}, "5": {"1": 1, "2": 1, "3": 1, "4": 2, "5": -1, "6": -1, "7": 3, "8": 1, "9": 1, "10": 1, "11": -2, "12": -2, "13": -3, "14": -3, "15": 1, "16": 3, "17": 3, "18": -3, "19": 3, "20": 3, "21": 2, "22": 3, "23": 3, "24": 3, "25": -2}, "6": {"1": 1, "2": 3, "3": -1, "4": 1, "5": 1, "6": 1, "7": -2, "8": 2, "9": 1, "10": 1, "11": 1, "12": 1, "13": -2, "14": -1, "15": 1, "16": 1, "17": -1, "18": -3, "19": -3, "20": 3, "21": 3, "22": -1, "23": 3, "24": 3, "25": 1}, "7": {"1": 2, "2": 3, "3": 1, "4": 2, "5": 2, "6": 3, "7": 1, "8": 2, "9": 3, "10": 2, "11": 3, "12": 3, "13": 3, "14": 1, "15": 3, "16": -3, "17": -2, "18": 3, "19": 1, "20": -1, "21": 1, "22": 1, "23": 2, "24": 2, "25": 1}, "8": {"1": 2, "2": 3, "3": -1, "4": 3, "5": 3, "6": 3, "7": 2, "8": 3, "9": -2, "10": 3, "11": 3, "12": 2, "13": 2, "14": 3, "15": 3, "16": -2, "17": -2, "18": 1, "19": -3, "20": -2, "21": 1, "22": -2, "23": 3, "24": 2, "25": 3}, "9": {"1": 3, "2": 3, "3": -3, "4": -2, "5": 1, "6": 3, "7": 3, "8": 3, "9": 1, "10": 3, "11": 2, "12": 2, "13": 3, "14": 2, "15": 3, "16": -3, "17": -3, "18": 3, "19": -3, "20": -3, "21": -3, "22": -3, "23": -3, "24": 1, "25": 1}, "11": {"1": 2, "2": 3, "3": -3, "4": -3, "5": 3, "6": 1, "7": 3, "8": 3, "9": 1, "10": 3, "11": 2, "12": 2, "13": 3, "14": 3, "15": 2, "16": -3, "17": -3, "18": 2, "19": -3, "20": -3, "21": -3, "22": -3, "23": -3, "24": 1, "25": 1}, "14": {"1": 2, "2": 3, "3": -3, "4": 3, "5": 3, "6": 3, "7": 3, "8": 3, "9": 3, "10": 3, "11": 3, "12": 2, "13": 3, "14": 3, "15": 3, "16": -3, "17": -3, "18": 3, "19": -3, "20": -3, "21": 3, "22": -3, "23": -3, "24": 3, "25": 3}, "16": {"1": -1, "2": 3, "3": -1, "4": 1, "5": 1, "6": 1, "7": -3, "8": 1, "9": 1, "10": 1, "11": 1, "12": -1, "13": -3, "14": -1, "15": 1, "16": 1, "17": 1, "18": -3, "19": -3, "20": 3, "21": 3, "22": 2, "23": 2, "24": 3, "25": 1}})
-
 
 import pika
 import multiprocessing
@@ -20,8 +20,10 @@ try:
     import cPickle as pickle
 except ImportError:
     import pickle
+import logging
+logging.basicConfig()
 
-connection = pika.BlockingConnection(pika.URLParameters('amqp://op:opvsq@178.32.141.44:5672/%2f'))
+connection = pika.BlockingConnection(pika.URLParameters(config.MQ_URL))
 channel = connection.channel()
 
 channel.exchange_declare(exchange=config.MQ_EXCHANGE, exchange_type='topic')
@@ -31,17 +33,18 @@ queue_name = result.method.queue
 
 channel.queue_bind(exchange=config.MQ_EXCHANGE,
     queue=queue_name,
-    routing_key=config.MQ_PREFIX+'deliver')
+    routing_key=config.MQ_PREFIX+'discover')
 
-print ' [*] Waiting for logs. To exit press CTRL+C'
 
 def callback_deliver(ch, method, properties, body):
-    print " [x] %r:%r" % (method.routing_key, body,)
+    print " [x] %r:%r" % (method.routing_key, pickle.loads(body),)
+    import socket
     ch.basic_publish(exchange='',
         routing_key=properties.reply_to,
         body=pickle.dumps({
             'last_update': current_status.last_update,
-            'timestamp': datetime.now()
+            'timestamp': datetime.now(),
+            'host':socket.gethostname()
         })
     )
 #    ch.basic_ack(delivery_tag = method.delivery_tag)
@@ -51,6 +54,27 @@ channel.basic_consume(
     queue=queue_name,
     no_ack=True
 )
+
+
+# configuration
+def callback_configure(ch, method, properties, body):
+    data = pickle.loads(body)
+    print " [x] %r:%r" % (method.routing_key, data['election_code'])
+    current_status.save(data['configuration'])
+    ch.basic_ack(delivery_tag = method.delivery_tag)
+#channel.queue_declare(config.MQ_PREFIX+'configure')
+queue_name = channel.queue_declare(exclusive=True).method.queue
+binding_key = config.MQ_PREFIX+'configure'
+channel.queue_bind(
+    queue= queue_name,
+    exchange= config.MQ_EXCHANGE,
+    routing_key= binding_key
+)
+channel.basic_consume(
+    consumer_callback=callback_configure,
+    queue=queue_name,
+)
+
 
 def f():
     try:
@@ -62,20 +86,23 @@ def f():
 multiprocessing.Process(target=f).start()
 
 
-# configuration
-def callback_configure(ch, method, properties, body):
-    print " [x] %r:%r" % (method.routing_key, body,)
-    ch.basic_ack(delivery_tag = method.delivery_tag)
-channel.queue_declare(config.MQ_PREFIX+'configure')
-channel.queue_bind(
-    queue= queue_name,
-    exchange= config.MQ_EXCHANGE,
-    routing_key= queue_name
-)
-channel.basic_consume(
-    consumer_callback=callback_configure,
-    queue=config.MQ_PREFIX+'configure',
-)
+save_queue = config.MQ_PREFIX+'save'
+channel.queue_declare(queue=save_queue, durable=True)
+channel.queue_bind(exchange=config.MQ_EXCHANGE, queue=queue_name)
+
+def send_results(code,user_data,user_answers, results):
+
+    channel.basic_publish(
+        exchange=config.MQ_EXCHANGE,
+        routing_key= save_queue,
+        body= pickle.dumps({
+            'code':code,'user_data':user_data,'user_answers':user_answers,'results':results
+        })
+    )
+    print ' [x] Results sent'
+
+
+print ' [*] To exit press CTRL+C'
 
 #import pika
 #import multiprocessing
@@ -196,12 +223,18 @@ class compute(object):
             raise web.BadRequest("User email is invalid")
 
         if not isinstance(input.user_answers, dict) \
-            or len(input.user_answers) != len(current_status.questions) \
-            or set(input.user_answers) != current_status.questions:
-
+            or len(input.user_answers) != len(current_status.questions):
             raise web.BadRequest("User have to answer to all questions")
 
-        user_answers = current_status.prepare_answers(input.user_answers)
+        # convert all to integers
+        user_answers = {}
+        for k,v in input.user_answers.items():
+            user_answers[int(k)] = int(v)
+
+        if set(user_answers) != current_status.questions:
+            raise web.BadRequest("User have to answer to right questions")
+
+        user_answers = current_status.prepare_answers(user_answers)
 
         # execute mds calculation
         # TODO: execute can raise an Exception
@@ -215,26 +248,39 @@ class compute(object):
         input.user_data['agent'] = web.ctx.env.get('HTTP_USER_AGENT', '')
 
         # generate computation code
-        ccode = helpers.md5(input.user_data['name']+input.user_data['email']+input.user_data['ip_address'])
+        code = helpers.md5(input.user_data['name']+input.user_data['email']+input.user_data['ip_address'])
 
         # TODO: send results to rabbit with user-data (email,name,ip,referral)
-        print "to rabbit: ", {
-            'user_data': input.user_data,
-            'user_answers': input.user_answers,
-            'results': results,
-            'code': ccode,
-        }
+        send_results(code,input.user_data,dict(zip(current_status.questions,user_answers)), results)
+#        print
+#        print 'user_data: ', input.user_data
+#        print 'user_answers: ', user_answers
+#        print 'results: ', results
+#        print 'code: ', ccode
+
 
         # prepare json response
         web.header('Content-Type', 'application/json')
 
         try:
             return json.dumps({
-                'code': ccode,
+                'code': code,
                 'results': results,
             })
         except Exception, e:
             return json.dumps({'error':e.message})
+
+
+
+class configuration(object):
+
+    def GET(self):
+        return json.dumps({
+            'last_update': current_status.last_update.isoformat(),
+            'parties' : current_status.parties,
+            'questions' : list(current_status.questions),
+            'answers' : current_status.answers,
+        })
 
 
 if __name__ == "__main__":

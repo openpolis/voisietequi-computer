@@ -25,12 +25,16 @@ class ComputerStatus(object):
 
     def save(self, parties_positions):
         """persist new status, then load it"""
-        self.load(parties_positions)
-        pickle.dump( parties_positions, open( config.STATUS_PATH, "wb" ) )
+        now = datetime.now()
+        self.load(parties_positions, now)
+        pickle.dump( {
+            'party_positions': parties_positions,
+            'updated_at': now
+        }, open( config.STATUS_PATH, "wb" ) )
         print "Status saved"
 
 
-    def load(self, parties_positions=None):
+    def load(self, parties_positions=None, updated_at=None):
         """
         parties_positions is a dictionary of dictionaries of question's answers.
         the results of loading status is to extract parties list from outer keys,
@@ -40,7 +44,7 @@ class ComputerStatus(object):
             # load parties positions from persistent source
             try:
                 data = pickle.load( open(config.STATUS_PATH, "rb" ) )
-                self.load( data )
+                self.load( data['party_positions'], data['updated_at'] )
             except IOError:
                 print "Computer initialized without configuration"
                 # raise ComputerNotConfigured
@@ -72,7 +76,7 @@ class ComputerStatus(object):
             self.parties.append( party ) # int(party)
 
         self.is_configured = True
-        self.last_update = datetime.now()
+        self.last_update = datetime.now() if not updated_at else updated_at
         print "Status loaded"
 
 
