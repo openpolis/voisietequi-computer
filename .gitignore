@@ -1,7 +1,7 @@
 .idea
 .vagrant
 .env
-/log/*
+log/*
 *.py[cod]
 
 # C extensions

@@ -100,7 +100,7 @@ def f():
         channel.stop_consuming()
         connection.close()
 
-ultiprocessing.Process(target=f).start()
+multiprocessing.Process(target=f).start()
 
 
 print ' [*] To exit press CTRL+C'
