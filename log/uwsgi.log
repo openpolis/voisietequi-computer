@@ -1,0 +1,482 @@
+*** Starting uWSGI 1.4.5 (32bit) on [Mon Feb  4 16:33:57 2013] ***
+compiled with version: 4.4.5 on 02 February 2013 01:02:50
+os: Linux-2.6.32-11-pve #1 SMP Wed Apr 11 07:17:05 CEST 2012
+nodename: vsqcomputer
+machine: i686
+clock source: unix
+detected number of CPU cores: 2
+current working directory: /home/vsqcomputer
+detected binary path: /usr/local/bin/uwsgi
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+your memory page size is 4096 bytes
+ *** WARNING: you have enabled harakiri without post buffering. Slow upload could be rejected on post-unbuffered webservers *** 
+detected max file descriptor number: 1024
+lock engine: pthread robust mutexes
+uwsgi socket 0 bound to TCP address 0.0.0.0:8070 fd 3
+Python version: 2.6.6 (r266:84292, Dec 27 2010, 00:18:12)  [GCC 4.4.5]
+*** Python threads support is disabled. You can enable it with --enable-threads ***
+Python main interpreter initialized at 0x8b1fb30
+your server socket listen backlog is limited to 100 connections
+mapped 319040 bytes (311 KB) for 4 cores
+*** Operational MODE: preforking ***
+Traceback (most recent call last):
+  File "./computer/app.py", line 1, in <module>
+    import web
+ImportError: No module named web
+unable to load app 0 (mountpoint='') (callable not found or import error)
+*** no app loaded. going in full dynamic mode ***
+spawned uWSGI master process (pid: 22282)
+spawned uWSGI worker 1 (pid: 22283, cores: 1)
+spawned uWSGI worker 2 (pid: 22284, cores: 1)
+spawned uWSGI worker 3 (pid: 22285, cores: 1)
+spawned uWSGI worker 4 (pid: 22286, cores: 1)
+invalid request block size: 21573 (max 4096)...skip
+Mon Feb  4 16:37:00 2013 - error parsing request
+invalid request block size: 21573 (max 4096)...skip
+Mon Feb  4 16:37:01 2013 - error parsing request
+invalid request block size: 21327 (max 4096)...skip
+Mon Feb  4 16:37:10 2013 - error parsing request
+invalid request block size: 21327 (max 4096)...skip
+Mon Feb  4 16:38:15 2013 - error parsing request
+invalid request block size: 21573 (max 4096)...skip
+Mon Feb  4 16:45:41 2013 - error parsing request
+Mon Feb  4 17:07:08 2013 - uWSGI worker 1 screams: UAAAAAAH my master disconnected: i will kill myself !!!
+Mon Feb  4 17:07:08 2013 - uWSGI worker 3 screams: UAAAAAAH my master disconnected: i will kill myself !!!
+Mon Feb  4 17:07:08 2013 - uWSGI worker 4 screams: UAAAAAAH my master disconnected: i will kill myself !!!
+Mon Feb  4 17:07:08 2013 - uWSGI worker 2 screams: UAAAAAAH my master disconnected: i will kill myself !!!
+*** Starting uWSGI 1.4.5 (32bit) on [Mon Feb  4 17:19:40 2013] ***
+compiled with version: 4.4.5 on 02 February 2013 01:02:50
+os: Linux-2.6.32-11-pve #1 SMP Wed Apr 11 07:17:05 CEST 2012
+nodename: vsqcomputer
+machine: i686
+clock source: unix
+detected number of CPU cores: 2
+current working directory: /home/vsqcomputer
+detected binary path: /usr/local/bin/uwsgi
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+your memory page size is 4096 bytes
+ *** WARNING: you have enabled harakiri without post buffering. Slow upload could be rejected on post-unbuffered webservers *** 
+detected max file descriptor number: 1024
+lock engine: pthread robust mutexes
+bind(): Cannot assign requested address [core/socket.c line 628]
+*** Starting uWSGI 1.4.5 (32bit) on [Mon Feb  4 17:20:49 2013] ***
+compiled with version: 4.4.5 on 02 February 2013 01:02:50
+os: Linux-2.6.32-11-pve #1 SMP Wed Apr 11 07:17:05 CEST 2012
+nodename: vsqcomputer
+machine: i686
+clock source: unix
+detected number of CPU cores: 2
+current working directory: /home/vsqcomputer
+detected binary path: /usr/local/bin/uwsgi
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+your memory page size is 4096 bytes
+ *** WARNING: you have enabled harakiri without post buffering. Slow upload could be rejected on post-unbuffered webservers *** 
+detected max file descriptor number: 1024
+lock engine: pthread robust mutexes
+uwsgi socket 0 bound to TCP address 0.0.0.0:8070 fd 3
+Python version: 2.6.6 (r266:84292, Dec 27 2010, 00:18:12)  [GCC 4.4.5]
+*** Python threads support is disabled. You can enable it with --enable-threads ***
+Python main interpreter initialized at 0x9105b40
+your server socket listen backlog is limited to 100 connections
+mapped 319040 bytes (311 KB) for 4 cores
+*** Operational MODE: preforking ***
+Traceback (most recent call last):
+  File "./computer/app.py", line 1, in <module>
+    import web
+ImportError: No module named web
+unable to load app 0 (mountpoint='') (callable not found or import error)
+*** no app loaded. going in full dynamic mode ***
+spawned uWSGI master process (pid: 25420)
+spawned uWSGI worker 1 (pid: 25421, cores: 1)
+spawned uWSGI worker 2 (pid: 25422, cores: 1)
+spawned uWSGI worker 3 (pid: 25423, cores: 1)
+spawned uWSGI worker 4 (pid: 25424, cores: 1)
+[pid: 25424|app: -1|req: -1/1] 95.224.95.230 () {40 vars in 828 bytes} [Mon Feb  4 17:24:37 2013] GET /computer/ => generated 48 bytes in 0 msecs (HTTP/1.1 500) 2 headers in 63 bytes (0 switches on core 0)
+[pid: 25424|app: -1|req: -1/2] 95.224.95.230 () {40 vars in 828 bytes} [Mon Feb  4 17:25:22 2013] GET /computer/ => generated 48 bytes in 0 msecs (HTTP/1.1 500) 2 headers in 63 bytes (0 switches on core 0)
+[pid: 25424|app: -1|req: -1/3] 95.224.95.230 () {42 vars in 859 bytes} [Mon Feb  4 17:26:56 2013] GET /computer/ => generated 48 bytes in 0 msecs (HTTP/1.1 500) 2 headers in 63 bytes (0 switches on core 0)
+[pid: 25424|app: -1|req: -1/4] 95.224.95.230 () {40 vars in 828 bytes} [Mon Feb  4 17:28:04 2013] GET /computer/ => generated 48 bytes in 0 msecs (HTTP/1.1 500) 2 headers in 63 bytes (0 switches on core 0)
+Mon Feb  4 17:39:22 2013 - uWSGI worker 4 screams: UAAAAAAH my master disconnected: i will kill myself !!!
+Mon Feb  4 17:39:22 2013 - uWSGI worker 1 screams: UAAAAAAH my master disconnected: i will kill myself !!!
+Mon Feb  4 17:39:22 2013 - uWSGI worker 3 screams: UAAAAAAH my master disconnected: i will kill myself !!!
+Mon Feb  4 17:39:22 2013 - uWSGI worker 2 screams: UAAAAAAH my master disconnected: i will kill myself !!!
+*** Starting uWSGI 1.4.5 (32bit) on [Mon Feb  4 17:40:03 2013] ***
+compiled with version: 4.4.5 on 02 February 2013 01:02:50
+os: Linux-2.6.32-11-pve #1 SMP Wed Apr 11 07:17:05 CEST 2012
+nodename: vsqcomputer
+machine: i686
+clock source: unix
+detected number of CPU cores: 2
+current working directory: /home/vsqcomputer
+detected binary path: /usr/local/bin/uwsgi
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+your memory page size is 4096 bytes
+ *** WARNING: you have enabled harakiri without post buffering. Slow upload could be rejected on post-unbuffered webservers *** 
+detected max file descriptor number: 1024
+lock engine: pthread robust mutexes
+uwsgi socket 0 bound to TCP address 0.0.0.0:8070 fd 3
+Python version: 2.6.6 (r266:84292, Dec 27 2010, 00:18:12)  [GCC 4.4.5]
+*** Python threads support is disabled. You can enable it with --enable-threads ***
+Python main interpreter initialized at 0x9f4cb40
+your server socket listen backlog is limited to 100 connections
+mapped 319040 bytes (311 KB) for 4 cores
+*** Operational MODE: preforking ***
+Traceback (most recent call last):
+  File "./computer/app.py", line 1, in <module>
+    import web
+ImportError: No module named web
+unable to load app 0 (mountpoint='') (callable not found or import error)
+*** no app loaded. going in full dynamic mode ***
+spawned uWSGI master process (pid: 26697)
+spawned uWSGI worker 1 (pid: 26698, cores: 1)
+spawned uWSGI worker 2 (pid: 26699, cores: 1)
+spawned uWSGI worker 3 (pid: 26700, cores: 1)
+spawned uWSGI worker 4 (pid: 26701, cores: 1)
+Mon Feb  4 17:40:35 2013 - uWSGI worker 4 screams: UAAAAAAH my master disconnected: i will kill myself !!!
+Mon Feb  4 17:40:35 2013 - uWSGI worker 2 screams: UAAAAAAH my master disconnected: i will kill myself !!!
+Mon Feb  4 17:40:35 2013 - uWSGI worker 3 screams: UAAAAAAH my master disconnected: i will kill myself !!!
+Mon Feb  4 17:40:35 2013 - uWSGI worker 1 screams: UAAAAAAH my master disconnected: i will kill myself !!!
+*** Starting uWSGI 1.4.5 (32bit) on [Mon Feb  4 17:41:37 2013] ***
+compiled with version: 4.4.5 on 02 February 2013 01:02:50
+os: Linux-2.6.32-11-pve #1 SMP Wed Apr 11 07:17:05 CEST 2012
+nodename: vsqcomputer
+machine: i686
+clock source: unix
+detected number of CPU cores: 2
+current working directory: /home/vsqcomputer
+detected binary path: /usr/local/bin/uwsgi
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+your memory page size is 4096 bytes
+ *** WARNING: you have enabled harakiri without post buffering. Slow upload could be rejected on post-unbuffered webservers *** 
+detected max file descriptor number: 1024
+lock engine: pthread robust mutexes
+uwsgi socket 0 bound to TCP address 0.0.0.0:8070 fd 3
+Python version: 2.6.6 (r266:84292, Dec 27 2010, 00:18:12)  [GCC 4.4.5]
+*** Python threads support is disabled. You can enable it with --enable-threads ***
+Python main interpreter initialized at 0x87bfb40
+your server socket listen backlog is limited to 100 connections
+mapped 319040 bytes (311 KB) for 4 cores
+*** Operational MODE: preforking ***
+Traceback (most recent call last):
+  File "./computer/app.py", line 1, in <module>
+    import web
+ImportError: No module named web
+unable to load app 0 (mountpoint='') (callable not found or import error)
+*** no app loaded. going in full dynamic mode ***
+spawned uWSGI master process (pid: 26811)
+spawned uWSGI worker 1 (pid: 26812, cores: 1)
+spawned uWSGI worker 2 (pid: 26813, cores: 1)
+spawned uWSGI worker 3 (pid: 26814, cores: 1)
+spawned uWSGI worker 4 (pid: 26815, cores: 1)
+Mon Feb  4 17:44:16 2013 - uWSGI worker 3 screams: UAAAAAAH my master disconnected: i will kill myself !!!
+Mon Feb  4 17:44:16 2013 - uWSGI worker 4 screams: UAAAAAAH my master disconnected: i will kill myself !!!
+Mon Feb  4 17:44:16 2013 - uWSGI worker 2 screams: UAAAAAAH my master disconnected: i will kill myself !!!
+Mon Feb  4 17:44:16 2013 - uWSGI worker 1 screams: UAAAAAAH my master disconnected: i will kill myself !!!
+*** Starting uWSGI 1.4.5 (32bit) on [Mon Feb  4 17:45:06 2013] ***
+compiled with version: 4.4.5 on 02 February 2013 01:02:50
+os: Linux-2.6.32-11-pve #1 SMP Wed Apr 11 07:17:05 CEST 2012
+nodename: vsqcomputer
+machine: i686
+clock source: unix
+detected number of CPU cores: 2
+current working directory: /home/vsqcomputer
+detected binary path: /usr/local/bin/uwsgi
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+your memory page size is 4096 bytes
+ *** WARNING: you have enabled harakiri without post buffering. Slow upload could be rejected on post-unbuffered webservers *** 
+detected max file descriptor number: 1024
+lock engine: pthread robust mutexes
+uwsgi socket 0 bound to TCP address 0.0.0.0:8070 fd 3
+Python version: 2.6.6 (r266:84292, Dec 27 2010, 00:18:12)  [GCC 4.4.5]
+Set PythonHome to /home/virtualenvs/vsqcomputer
+'import site' failed; use -v for traceback
+*** Python threads support is disabled. You can enable it with --enable-threads ***
+Python main interpreter initialized at 0x8ce4c60
+your server socket listen backlog is limited to 100 connections
+mapped 319040 bytes (311 KB) for 4 cores
+*** Operational MODE: preforking ***
+added /home/vsqcomputer/ to pythonpath.
+Traceback (most recent call last):
+  File "/home/vsqcomputer/computer/app.py", line 1, in <module>
+    import web
+ImportError: No module named web
+unable to load app 0 (mountpoint='') (callable not found or import error)
+*** no app loaded. going in full dynamic mode ***
+spawned uWSGI master process (pid: 27061)
+spawned uWSGI worker 1 (pid: 27062, cores: 1)
+spawned uWSGI worker 2 (pid: 27063, cores: 1)
+spawned uWSGI worker 3 (pid: 27064, cores: 1)
+spawned uWSGI worker 4 (pid: 27065, cores: 1)
+Mon Feb  4 17:45:30 2013 - uWSGI worker 2 screams: UAAAAAAH my master disconnected: i will kill myself !!!
+Mon Feb  4 17:45:30 2013 - uWSGI worker 1 screams: UAAAAAAH my master disconnected: i will kill myself !!!
+Mon Feb  4 17:45:30 2013 - uWSGI worker 4 screams: UAAAAAAH my master disconnected: i will kill myself !!!
+Mon Feb  4 17:45:30 2013 - uWSGI worker 3 screams: UAAAAAAH my master disconnected: i will kill myself !!!
+*** Starting uWSGI 1.4.5 (32bit) on [Mon Feb  4 17:45:39 2013] ***
+compiled with version: 4.4.5 on 02 February 2013 01:02:50
+os: Linux-2.6.32-11-pve #1 SMP Wed Apr 11 07:17:05 CEST 2012
+nodename: vsqcomputer
+machine: i686
+clock source: unix
+detected number of CPU cores: 2
+current working directory: /home/vsqcomputer
+detected binary path: /usr/local/bin/uwsgi
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+your memory page size is 4096 bytes
+ *** WARNING: you have enabled harakiri without post buffering. Slow upload could be rejected on post-unbuffered webservers *** 
+detected max file descriptor number: 1024
+lock engine: pthread robust mutexes
+uwsgi socket 0 bound to TCP address 0.0.0.0:8070 fd 3
+Python version: 2.6.6 (r266:84292, Dec 27 2010, 00:18:12)  [GCC 4.4.5]
+Set PythonHome to /home/virtualenvs/vsqcomputer
+'import site' failed; use -v for traceback
+*** Python threads support is disabled. You can enable it with --enable-threads ***
+Python main interpreter initialized at 0x914fc60
+your server socket listen backlog is limited to 100 connections
+mapped 319040 bytes (311 KB) for 4 cores
+*** Operational MODE: preforking ***
+added /home/vsqcomputer/ to pythonpath.
+Traceback (most recent call last):
+  File "/home/vsqcomputer/computer/app.py", line 1, in <module>
+    import web
+ImportError: No module named web
+unable to load app 0 (mountpoint='') (callable not found or import error)
+*** no app loaded. going in full dynamic mode ***
+spawned uWSGI master process (pid: 27105)
+spawned uWSGI worker 1 (pid: 27106, cores: 1)
+spawned uWSGI worker 2 (pid: 27107, cores: 1)
+spawned uWSGI worker 3 (pid: 27108, cores: 1)
+spawned uWSGI worker 4 (pid: 27109, cores: 1)
+...gracefully killing workers...
+Gracefully killing worker 2 (pid: 27107)...
+Gracefully killing worker 1 (pid: 27106)...
+Gracefully killing worker 3 (pid: 27108)...
+Gracefully killing worker 4 (pid: 27109)...
+binary reloading uWSGI...
+chdir() to /home/vsqcomputer
+closing all non-uwsgi socket fds > 2 (max_fd = 1024)...
+found fd 3 mapped to socket 0 (0.0.0.0:8070)
+running /usr/local/bin/uwsgi
+[uWSGI] getting INI configuration from uwsgi.ini
+*** Starting uWSGI 1.4.5 (32bit) on [Mon Feb  4 17:49:27 2013] ***
+compiled with version: 4.4.5 on 02 February 2013 01:02:50
+os: Linux-2.6.32-11-pve #1 SMP Wed Apr 11 07:17:05 CEST 2012
+nodename: vsqcomputer
+machine: i686
+clock source: unix
+detected number of CPU cores: 2
+current working directory: /home/vsqcomputer
+detected binary path: /usr/local/bin/uwsgi
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+your memory page size is 4096 bytes
+ *** WARNING: you have enabled harakiri without post buffering. Slow upload could be rejected on post-unbuffered webservers *** 
+detected max file descriptor number: 1024
+lock engine: pthread robust mutexes
+uwsgi socket 0 bound to TCP address 0.0.0.0:8070 fd 3
+Python version: 2.6.6 (r266:84292, Dec 27 2010, 00:18:12)  [GCC 4.4.5]
+Set PythonHome to /home/virtualenvs/vsq_computer
+*** Python threads support is disabled. You can enable it with --enable-threads ***
+Python main interpreter initialized at 0x8b3abe8
+your server socket listen backlog is limited to 100 connections
+mapped 319040 bytes (311 KB) for 4 cores
+*** Operational MODE: preforking ***
+added /home/vsqcomputer/ to pythonpath.
+########## ComputerStatus(politiche2013) ##########
+Status loaded
+ [*] To exit press CTRL+C
+http://0.0.0.0:8080/
+*** Starting uWSGI 1.4.5 (32bit) on [Mon Feb  4 17:49:58 2013] ***
+compiled with version: 4.4.5 on 02 February 2013 01:02:50
+os: Linux-2.6.32-11-pve #1 SMP Wed Apr 11 07:17:05 CEST 2012
+nodename: vsqcomputer
+machine: i686
+clock source: unix
+detected number of CPU cores: 2
+current working directory: /home/vsqcomputer
+detected binary path: /usr/local/bin/uwsgi
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+your memory page size is 4096 bytes
+ *** WARNING: you have enabled harakiri without post buffering. Slow upload could be rejected on post-unbuffered webservers *** 
+detected max file descriptor number: 1024
+lock engine: pthread robust mutexes
+uwsgi socket 0 bound to TCP address 0.0.0.0:8070 fd 3
+Python version: 2.6.6 (r266:84292, Dec 27 2010, 00:18:12)  [GCC 4.4.5]
+Set PythonHome to /home/virtualenvs/vsq_computer
+*** Python threads support is disabled. You can enable it with --enable-threads ***
+Python main interpreter initialized at 0x9c7dc68
+your server socket listen backlog is limited to 100 connections
+mapped 319040 bytes (311 KB) for 4 cores
+*** Operational MODE: preforking ***
+added /home/vsqcomputer/ to pythonpath.
+########## ComputerStatus(politiche2013) ##########
+Status loaded
+ [*] To exit press CTRL+C
+http://0.0.0.0:8080/
+*** Starting uWSGI 1.4.5 (32bit) on [Mon Feb  4 18:00:18 2013] ***
+compiled with version: 4.4.5 on 02 February 2013 01:02:50
+os: Linux-2.6.32-11-pve #1 SMP Wed Apr 11 07:17:05 CEST 2012
+nodename: vsqcomputer
+machine: i686
+clock source: unix
+detected number of CPU cores: 2
+current working directory: /home/vsqcomputer
+detected binary path: /usr/local/bin/uwsgi
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+your memory page size is 4096 bytes
+ *** WARNING: you have enabled harakiri without post buffering. Slow upload could be rejected on post-unbuffered webservers *** 
+detected max file descriptor number: 1024
+lock engine: pthread robust mutexes
+uwsgi socket 0 bound to TCP address 0.0.0.0:8070 fd 3
+Python version: 2.6.6 (r266:84292, Dec 27 2010, 00:18:12)  [GCC 4.4.5]
+Set PythonHome to /home/virtualenvs/vsq_computer
+*** Python threads support is disabled. You can enable it with --enable-threads ***
+Python main interpreter initialized at 0x8ee8c68
+your server socket listen backlog is limited to 100 connections
+mapped 319040 bytes (311 KB) for 4 cores
+*** Operational MODE: preforking ***
+added /home/vsqcomputer/ to pythonpath.
+########## ComputerStatus(politiche2013) ##########
+Status loaded
+ [*] To exit press CTRL+C
+WSGI app 0 (mountpoint='') ready in 3 seconds on interpreter 0x8ee8c68 pid: 28114 (default app)
+spawned uWSGI master process (pid: 28114)
+spawned uWSGI worker 1 (pid: 28120, cores: 1)
+spawned uWSGI worker 2 (pid: 28121, cores: 1)
+spawned uWSGI worker 3 (pid: 28122, cores: 1)
+spawned uWSGI worker 4 (pid: 28123, cores: 1)
+/home/vsqcomputer/computer/mds.py:80: ComplexWarning: Casting complex values to real discards the imaginary part
+  float(vals[1] * vectors[i][1]),
+/home/vsqcomputer/computer/mds.py:81: ComplexWarning: Casting complex values to real discards the imaginary part
+  float(vals[2] * vectors[i][2])
+coords: [[u'fare', -0.20879908417271639, 0.16180170016682624], [u'ld', -0.26884798901468421, 0.099497849473133185], [u'agl', -0.12450437218042402, -0.014518259058579341], [u'gs', 0.019526845824578812, 0.50779321121671861], [u'm5s', 0.27654945186936769, 0.011987267342579658], [u'lega', 0.36749765099654097, -0.062464407474463593], [u'monti', 0.082818247443628229, 0.017860033555495626], [u'cd', 0.38869593620431625, -0.019538002224087213], [u'fli', -0.11243153677078276, -0.13937379807445799], [u'udc', -0.13170050272480757, -0.10494078695463475], [u'psi', -0.19566262645581567, -0.35411573325911955], [u'pdl', -0.043258612442853873, 0.038790193870947828], [u'pd', -0.024644910374855611, 0.15179306995588665], [u'fi', -0.26778560318231415, 0.030714125276861196], [u'sel', -0.11888760176628693, -0.33647073364568347], [u'ds', 0.34366267594996902, 0.047662220359067552], [u'fn', -0.21984859880981622, 0.12342159051009434], ['user', 0.2003056044475201, -0.19877521594343986]]
+ [x] Results sent
+[pid: 28120|app: 0|req: 1/1] 176.31.74.17 () {34 vars in 588 bytes} [Mon Feb  4 18:15:17 2013] POST /computation/ => generated 541 bytes in 29 msecs (HTTP/1.1 200) 1 headers in 51 bytes (2 switches on core 0)
+coords: [[u'fare', -0.20879908417271564, 0.1618017001668246], [u'ld', -0.26884798901468437, 0.099497849473134906], [u'agl', -0.1245043721804244, -0.014518259058576821], [u'gs', 0.019526845824580055, 0.5077932112167195], [u'm5s', 0.27654945186936769, 0.01198726734258033], [u'lega', 0.36749765099654047, -0.062464407474463163], [u'monti', 0.082818247443628382, 0.017860033555494582], [u'cd', 0.38869593620431653, -0.019538002224089055], [u'fli', -0.11243153677078319, -0.13937379807445818], [u'udc', -0.13170050272480741, -0.10494078695463657], [u'psi', -0.1956626264558165, -0.35411573325911999], [u'pdl', -0.043258612442853769, 0.038790193870947384], [u'pd', -0.024644910374854979, 0.15179306995588565], [u'fi', -0.26778560318231409, 0.030714125276862441], [u'sel', -0.11888760176628772, -0.33647073364568353], [u'ds', 0.34366267594996924, 0.047662220359066504], [u'fn', -0.21984859880981605, 0.12342159051009435], ['user', 0.20030560444751963, -0.1987752159434393]]
+ [x] Results sent
+[pid: 28120|app: 0|req: 2/2] 176.31.74.17 () {34 vars in 588 bytes} [Mon Feb  4 18:15:35 2013] POST /computation/ => generated 541 bytes in 25 msecs (HTTP/1.1 200) 1 headers in 51 bytes (2 switches on core 0)
+coords: [[u'fare', -0.20879908417271639, 0.16180170016682624], [u'ld', -0.2688479890146841, 0.099497849473133185], [u'agl', -0.12450437218042402, -0.014518259058579402], [u'gs', 0.019526845824578812, 0.50779321121671861], [u'm5s', 0.27654945186936769, 0.011987267342579657], [u'lega', 0.36749765099654097, -0.062464407474463628], [u'monti', 0.082818247443628243, 0.017860033555495602], [u'cd', 0.38869593620431625, -0.019538002224087213], [u'fli', -0.11243153677078273, -0.13937379807445802], [u'udc', -0.1317005027248076, -0.10494078695463482], [u'psi', -0.19566262645581567, -0.35411573325911955], [u'pdl', -0.04325861244285386, 0.038790193870947828], [u'pd', -0.024644910374855604, 0.15179306995588659], [u'fi', -0.26778560318231409, 0.030714125276861244], [u'sel', -0.1188876017662869, -0.33647073364568347], [u'ds', 0.34366267594996891, 0.047662220359067482], [u'fn', -0.21984859880981619, 0.1234215905100943], ['user', 0.20030560444752016, -0.1987752159434398]]
+ [x] Results sent
+[pid: 28120|app: 0|req: 3/3] 176.31.74.17 () {34 vars in 588 bytes} [Mon Feb  4 18:16:35 2013] POST /computation/ => generated 541 bytes in 31 msecs (HTTP/1.1 200) 1 headers in 51 bytes (2 switches on core 0)
+ [x] 'vsq.politiche2013.discover':datetime.datetime(2013, 2, 4, 19, 20, 27, 844758)
+coords: [[u'fare', 0.13673700633457489, -0.07361401292114432], [u'ld', 0.25493764098340943, -0.17685181221579913], [u'agl', 0.16011313666956983, -0.10942618535852423], [u'gs', -0.087444106669751206, -0.52060367256540885], [u'm5s', -0.21578044813061664, -0.091463225459419775], [u'lega', -0.35488370532786551, 0.093835304577186612], [u'monti', -0.089257502128715707, 0.021978288506787635], [u'cd', -0.39289890594741517, 0.12415889894039141], [u'fli', 0.1096333075784099, 0.15654695320928547], [u'udc', 0.13187007887588728, 0.15022096778574912], [u'psi', 0.26542236211227865, 0.29643440433481849], [u'pdl', 0.0073064651185622328, 0.016386015426857591], [u'pd', -0.055889506386937682, -0.029726638127914852], [u'fi', 0.27309145724794787, -0.11152198819586406], [u'sel', 0.16495871688295255, 0.30597353692269325], [u'ds', -0.37615142180842404, 0.056818087518062069], [u'fn', 0.17191291969807385, -0.10402588802846884], ['user', -0.083743739255622215, 0.080465781504346204]]
+ [x] Results sent
+[pid: 28120|app: 0|req: 4/4] 2.231.146.94 () {36 vars in 543 bytes} [Mon Feb  4 18:21:11 2013] POST /computation/ => generated 541 bytes in 24 msecs (HTTP/1.1 200) 1 headers in 51 bytes (2 switches on core 0)
+coords: [[u'fare', -0.20879908417271639, 0.16180170016682624], [u'ld', -0.2688479890146841, 0.099497849473133185], [u'agl', -0.12450437218042402, -0.014518259058579402], [u'gs', 0.019526845824578812, 0.50779321121671861], [u'm5s', 0.27654945186936769, 0.011987267342579657], [u'lega', 0.36749765099654097, -0.062464407474463628], [u'monti', 0.082818247443628243, 0.017860033555495602], [u'cd', 0.38869593620431625, -0.019538002224087213], [u'fli', -0.11243153677078273, -0.13937379807445802], [u'udc', -0.1317005027248076, -0.10494078695463482], [u'psi', -0.19566262645581567, -0.35411573325911955], [u'pdl', -0.04325861244285386, 0.038790193870947828], [u'pd', -0.024644910374855604, 0.15179306995588659], [u'fi', -0.26778560318231409, 0.030714125276861244], [u'sel', -0.1188876017662869, -0.33647073364568347], [u'ds', 0.34366267594996891, 0.047662220359067482], [u'fn', -0.21984859880981619, 0.1234215905100943], ['user', 0.20030560444752016, -0.1987752159434398]]
+ [x] Results sent
+[pid: 28120|app: 0|req: 5/5] 176.31.74.17 () {34 vars in 588 bytes} [Tue Feb  5 09:18:32 2013] POST /computation/ => generated 541 bytes in 25 msecs (HTTP/1.1 200) 1 headers in 51 bytes (2 switches on core 0)
+Tue Feb  5 09:30:08 2013 - uWSGI worker 3 screams: UAAAAAAH my master disconnected: i will kill myself !!!
+Tue Feb  5 09:30:08 2013 - uWSGI worker 1 screams: UAAAAAAH my master disconnected: i will kill myself !!!
+Tue Feb  5 09:30:08 2013 - uWSGI worker 4 screams: UAAAAAAH my master disconnected: i will kill myself !!!
+Error in atexit._run_exitfuncs:Tue Feb  5 09:30:08 2013 - uWSGI worker 2 screams: UAAAAAAH my master disconnected: i will kill myself !!!
+
+Traceback (most recent call last):
+  File "/usr/lib/python2.6/atexit.py", line 24, in _run_exitfuncs
+    func(*targs, **kargs)
+  File "/usr/lib/python2.6/multiprocessing/util.py", line 262, in _exit_function
+Error in atexit._run_exitfuncs:
+Error in atexit._run_exitfuncs:Traceback (most recent call last):
+
+Traceback (most recent call last):
+    for p in active_children():
+Error in atexit._run_exitfuncs:  File "/usr/lib/python2.6/atexit.py", line 24, in _run_exitfuncs
+  File "/usr/lib/python2.6/multiprocessing/process.py", line 43, in active_children
+
+Traceback (most recent call last):
+  File "/usr/lib/python2.6/atexit.py", line 24, in _run_exitfuncs
+  File "/usr/lib/python2.6/atexit.py", line 24, in _run_exitfuncs
+    _cleanup()
+  File "/usr/lib/python2.6/multiprocessing/process.py", line 53, in _cleanup
+    if p._popen.poll() is not None:
+  File "/usr/lib/python2.6/multiprocessing/forking.py", line 106, in poll
+    func(*targs, **kargs)
+  File "/usr/lib/python2.6/multiprocessing/util.py", line 262, in _exit_function
+    func(*targs, **kargs)
+    func(*targs, **kargs)
+  File "/usr/lib/python2.6/multiprocessing/util.py", line 262, in _exit_function
+  File "/usr/lib/python2.6/multiprocessing/util.py", line 262, in _exit_function
+    pid, sts = os.waitpid(self.pid, flag)
+    for p in active_children():
+  File "/usr/lib/python2.6/multiprocessing/process.py", line 43, in active_children
+OSError: [Errno 10] No child processes
+    for p in active_children():
+  File "/usr/lib/python2.6/multiprocessing/process.py", line 43, in active_children
+    for p in active_children():
+Error in sys.exitfunc:
+Traceback (most recent call last):
+  File "/usr/lib/python2.6/multiprocessing/process.py", line 43, in active_children
+  File "/usr/lib/python2.6/atexit.py", line 24, in _run_exitfuncs
+    func(*targs, **kargs)
+    _cleanup()
+  File "/usr/lib/python2.6/multiprocessing/util.py", line 262, in _exit_function
+  File "/usr/lib/python2.6/multiprocessing/process.py", line 53, in _cleanup
+    if p._popen.poll() is not None:
+    _cleanup()
+  File "/usr/lib/python2.6/multiprocessing/forking.py", line 106, in poll
+      File "/usr/lib/python2.6/multiprocessing/process.py", line 53, in _cleanup
+for p in active_children():
+  File "/usr/lib/python2.6/multiprocessing/process.py", line 43, in active_children
+    if p._popen.poll() is not None:
+    _cleanup()
+  File "/usr/lib/python2.6/multiprocessing/forking.py", line 106, in poll
+  File "/usr/lib/python2.6/multiprocessing/process.py", line 53, in _cleanup
+        _cleanup()
+if p._popen.poll() is not None:
+  File "/usr/lib/python2.6/multiprocessing/forking.py", line 106, in poll
+  File "/usr/lib/python2.6/multiprocessing/process.py", line 53, in _cleanup
+    pid, sts = os.waitpid(self.pid, flag)
+    if p._popen.poll() is not None:
+OSError    pid, sts = os.waitpid(self.pid, flag)
+: [Errno 10] No child processes
+  File "/usr/lib/python2.6/multiprocessing/forking.py", line 106, in poll
+OSError: [Errno 10] No child processes
+    pid, sts = os.waitpid(self.pid, flag)
+OSError: [Errno 10] No child processes
+Error in sys.exitfunc:
+Traceback (most recent call last):
+  File "/usr/lib/python2.6/atexit.py", line 24, in _run_exitfuncs
+Error in sys.exitfunc:
+    func(*targs, **kargs)
+    pid, sts = os.waitpid(self.pid, flag)
+Traceback (most recent call last):
+  File "/usr/lib/python2.6/multiprocessing/util.py", line 262, in _exit_function
+  File "/usr/lib/python2.6/atexit.py", line 24, in _run_exitfuncs
+    func(*targs, **kargs)
+  File "/usr/lib/python2.6/multiprocessing/util.py", line 262, in _exit_function
+    OSError: [Errno 10] No child processes
+for p in active_children():
+  File "/usr/lib/python2.6/multiprocessing/process.py", line 43, in active_children
+    _cleanup()
+  File "/usr/lib/python2.6/multiprocessing/process.py", line 53, in _cleanup
+        for p in active_children():
+if p._popen.poll() is not None:
+  File "/usr/lib/python2.6/multiprocessing/forking.py", line 106, in poll
+  File "/usr/lib/python2.6/multiprocessing/process.py", line 43, in active_children
+    Error in sys.exitfunc:
+_cleanup()
+    pid, sts = os.waitpid(self.pid, flag)
+  File "/usr/lib/python2.6/multiprocessing/process.py", line 53, in _cleanup
+Traceback (most recent call last):
+OSError:       File "/usr/lib/python2.6/atexit.py", line 24, in _run_exitfuncs
+[Errno 10] No child processes
+if p._popen.poll() is not None:
+  File "/usr/lib/python2.6/multiprocessing/forking.py", line 106, in poll
+    func(*targs, **kargs)
+      File "/usr/lib/python2.6/multiprocessing/util.py", line 262, in _exit_function
+pid, sts = os.waitpid(self.pid, flag)
+OSError: [Errno 10] No child processes
+    for p in active_children():
+  File "/usr/lib/python2.6/multiprocessing/process.py", line 43, in active_children
+    _cleanup()
+  File "/usr/lib/python2.6/multiprocessing/process.py", line 53, in _cleanup
+    if p._popen.poll() is not None:
+  File "/usr/lib/python2.6/multiprocessing/forking.py", line 106, in poll
+    pid, sts = os.waitpid(self.pid, flag)
+OSError: [Errno 10] No child processes
