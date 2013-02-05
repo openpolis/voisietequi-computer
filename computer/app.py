@@ -199,4 +199,4 @@ class configuration(object):
 
 if __name__ == "__main__":
     app.run()
-    application = app.wsgifunc()
+application = app.wsgifunc()
