@@ -20,9 +20,12 @@ touch /etc/locale.gen && echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen && /usr/sbi
 echo export LANG=en_US.utf8 >> /etc/.bashrc
 export LANG=en_US.utf8
 
-# update packages, get some basic stuff
+# update packages, get some basic stuffm needed to compile
 apt-get -y update
 apt-get -y install python-virtualenv python-dev python-pip libblas-dev liblapack-dev libatlas-base-dev libxml2-dev
+apt-get -y install make curl gettext
+apt-get -y install g++ gfortran build-essential
+
 apt-get -y install vim
 apt-get -y install git
 
@@ -44,21 +47,19 @@ export WORKON_HOME=/home/virtualenvs
 
 # clone vsq repo from github (html, no ssh keys exchange)
 pushd /home
-git clone https://github.com/openpolis/voisietequi.git vsq13
+git clone https://github.com/openpolis/voisietequi-computer.git vsqcomputer
 
 mkvirtualenv vsq_computer
 
-pushd /home/vsq_computer
+pushd /home/vsqcomputer
 setvirtualenvproject
 
 pip install --upgrade pip
-pip install numpy --use-mirrors
-pip install scipy --use-mirrors
-pip install --use-mirrors -r requirements.txt
+pip install numpy
+pip install scipy
+pip install -r requirements.txt
 
 mkdir log
-chown uwsgi log
-chown uwsgi -R public/media/
 
 popd
 
