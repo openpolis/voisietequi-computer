@@ -75,6 +75,23 @@ channel.basic_consume(
     queue=queue_name,
 )
 
+save_queue = config.MQ_PREFIX+'save'
+channel.queue_declare(queue=save_queue, durable=True)
+channel.queue_bind(exchange=config.MQ_EXCHANGE, queue=save_queue)
+
+def send_results(code,user_data,user_answers, results):
+
+    channel.basic_publish(
+        exchange=config.MQ_EXCHANGE,
+        routing_key= save_queue,
+        body= pickle.dumps({
+            'code':code,'user_data':user_data,'user_answers':user_answers,'results':results
+        }),
+        properties=pika.BasicProperties(
+            delivery_mode = 2, # make message persistent
+        )
+    )
+    print ' [x] Results sent'
 
 def f():
     try:
@@ -86,110 +103,7 @@ def f():
 multiprocessing.Process(target=f).start()
 
 
-save_queue = config.MQ_PREFIX+'save'
-channel.queue_declare(queue=save_queue, durable=True)
-channel.queue_bind(exchange=config.MQ_EXCHANGE, queue=queue_name)
-
-def send_results(code,user_data,user_answers, results):
-
-    channel.basic_publish(
-        exchange=config.MQ_EXCHANGE,
-        routing_key= save_queue,
-        body= pickle.dumps({
-            'code':code,'user_data':user_data,'user_answers':user_answers,'results':results
-        })
-    )
-    print ' [x] Results sent'
-
-
 print ' [*] To exit press CTRL+C'
-
-#import pika
-#import multiprocessing
-#from datetime import datetime
-#try:
-#    import cPickle as pickle
-#except ImportError:
-#    import pickle
-#
-#class Deliverer(multiprocessing.Process):
-#
-#    QUEUE = config.MQ_PREFIX + 'deliver'
-#    ROUTING_KEY = QUEUE
-#    URL = config.MQ_URL
-#    EXCHANGE = config.MQ_EXCHANGE
-#    EXCHANGE_TYPE = 'topic'
-#
-#    def run(self):
-#        conn = pika.SelectConnection(
-#            pika.URLParameters(self.URL),
-#            on_open_callback=self.on_open
-#        )
-#        try:
-#            conn.ioloop.start()
-#        except KeyboardInterrupt:
-#            conn.ioloop.stop()
-#
-#    def on_open(self, conn):
-#        print 'Connection opened'
-#        self.connection = conn
-#        conn.channel(self.on_channel_open)
-#
-#    def on_channel_open(self, channel):
-#        print 'Channel opened'
-#        self.channel = channel
-#        self.setup_exchange(self.EXCHANGE)
-#
-#    def setup_exchange(self, exchange_name):
-#        print 'Declaring exchange %s' % exchange_name
-#        self.channel.exchange_declare(
-#            self.on_exchange_declareok,
-#            exchange=exchange_name,
-#            exchange_type=self.EXCHANGE_TYPE
-#        )
-#    def on_exchange_declareok(self, frame):
-#        print 'Exchange declared'
-#        self.setup_queue(self.QUEUE)
-#
-#    def setup_queue(self, queue_name):
-#        print 'Declaring queue %s' % queue_name
-#        self.channel.queue_declare(
-#            self.on_queue_declareok,
-#            queue=queue_name
-#        )
-#
-#    def on_queue_declareok(self, method_frame):
-#        print 'Binding %s to %s with %s' % ( self.EXCHANGE, self.QUEUE, self.ROUTING_KEY )
-#        self.channel.queue_bind(
-#            self.on_bindok,
-#            queue=self.QUEUE,
-#            exchange=self.EXCHANGE,
-#            routing_key=self.ROUTING_KEY
-#        )
-#
-#    def on_bindok(self, frame):
-#        print 'Queue bound'
-#        self.start_consuming()
-#
-#    def start_consuming(self):
-#        print 'Issuing consumer related RPC commands'
-#        self.consumer_tag = self.channel.basic_consume(self.on_message, self.QUEUE, no_ack=True)
-#
-#    def on_message(self, channel, basic_deliver, properties, body):
-#        print 'Received message # %s from %s: %s' % (basic_deliver.delivery_tag, properties.app_id, pickle.loads(body))
-#        self.channel.basic_publish(
-#            exchange=self.EXCHANGE,
-#            routing_key=properties.reply_to,
-#            body=pickle.dumps({
-#                'last_update': current_status.last_update,
-#                'timestamp': datetime.now()
-#            })
-#        )
-#
-#d = Deliverer()
-#d.start()
-
-
 
 class compute(object):
 
