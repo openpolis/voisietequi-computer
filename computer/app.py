@@ -75,17 +75,6 @@ channel.basic_consume(
     queue=queue_name,
 )
 
-
-def f():
-    try:
-        channel.start_consuming()
-    except KeyboardInterrupt:
-        channel.stop_consuming()
-        connection.close()
-
-multiprocessing.Process(target=f).start()
-
-
 save_queue = config.MQ_PREFIX+'save'
 channel.queue_declare(queue=save_queue, durable=True)
 channel.queue_bind(exchange=config.MQ_EXCHANGE, queue=queue_name)
@@ -100,6 +89,17 @@ def send_results(code,user_data,user_answers, results):
         })
     )
     print ' [x] Results sent'
+
+
+def f():
+    try:
+        channel.start_consuming()
+    except KeyboardInterrupt:
+        channel.stop_consuming()
+        connection.close()
+
+multiprocessing.Process(target=f).start()
+
 
 
 print ' [*] To exit press CTRL+C'
@@ -285,4 +285,5 @@ class configuration(object):
 
 if __name__ == "__main__":
     app.run()
-    application = app.wsgifunc()
+
+application = app.wsgifunc()
