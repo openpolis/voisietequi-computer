@@ -45,7 +45,7 @@ def normalize_coords(coords):
 
     x_range = max_x - min_x
     y_range = max_y - min_y
-    print 'coords:', coords
+    #print 'coords:', coords
     norm_coords = map(lambda x: [x[0],
                                  "%.3f" % ((x[1]-min_x)/x_range),
                                  "%.3f" % ((x[2]-min_y)/y_range)], coords)
