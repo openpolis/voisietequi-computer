@@ -40,7 +40,7 @@ class ComputerStatus(object):
         the results of loading status is to extract parties list from outer keys,
         questions keys list ( check if they are always the same ), and an ordered list of lists of answers
         """
-        if not parties_positions:
+        if parties_positions is None:
             # load parties positions from persistent source
             try:
                 data = pickle.load( open(config.STATUS_PATH, "rb" ) )
