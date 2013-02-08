@@ -4,6 +4,7 @@ import config, status, mds, helpers
 
 urls = (
     '/computation/?', 'compute',
+    '/coordinate_partiti/(\w+)/?', 'coordinates',
 )
 
 if config.DEBUG:
@@ -185,6 +186,28 @@ class compute(object):
         except Exception, e:
             return json.dumps({'error':e.message})
 
+
+class coordinates(object):
+
+    def GET(self, election_code):
+
+        if not current_status.is_configured:
+            logging.error("Computer is not configured")
+            raise web.InternalError("Computer is not configured")
+
+        if election_code != config.ELECTION_CODE:
+            logging.error("BadRequest: This computer is configured to handle '{0}' as election code, request has '{1}'".format(election_code,config.ELECTION_CODE))
+            raise web.BadRequest("Invalid election code")
+
+        results = mds.execute(
+            current_status.parties,
+            current_status.answers
+        )
+
+        try:
+            return json.dumps(results)
+        except Exception, e:
+            return json.dumps({'error':e.message})
 
 
 class configuration(object):
