@@ -37,9 +37,10 @@ channel.queue_bind(exchange=config.MQ_EXCHANGE,
 
 
 def callback_deliver(ch, method, properties, body):
-    print " [x] %r:%r" % (method.routing_key, pickle.loads(body),)
+    logging.info("Deliver message received (%r:%r)" % (method.routing_key, pickle.loads(body) ))
+
     import socket
-    ch.basic_publish(exchange='',
+    ch.basic_publish(exchange=config.MQ_EXCHANGE,
         routing_key=properties.reply_to,
         body=pickle.dumps({
             'last_update': current_status.last_update,
@@ -59,7 +60,7 @@ channel.basic_consume(
 # configuration
 def callback_configure(ch, method, properties, body):
     data = pickle.loads(body)
-    print " [x] %r:%r" % (method.routing_key, data['election_code'])
+    logging.info("Configuration received (%r:%r)" % (method.routing_key, data['election_code']))
     current_status.save(data['configuration'])
     ch.basic_ack(delivery_tag = method.delivery_tag)
 #channel.queue_declare(config.MQ_PREFIX+'configure')
@@ -91,7 +92,7 @@ def send_results(code,user_data,user_answers, results):
             delivery_mode = 2, # make message persistent
         )
     )
-    print ' [x] Results sent'
+    logging.info("Results sent")
 
 def f():
     try:
@@ -102,8 +103,7 @@ def f():
 
 multiprocessing.Process(target=f).start()
 
-
-print ' [*] To exit press CTRL+C'
+logging.info("To exit press CTRL+C")
 
 class compute(object):
 
@@ -113,6 +113,7 @@ class compute(object):
         """
 
         if not current_status.is_configured:
+            logging.error("Computer is not configured")
             raise web.InternalError("Computer is not configured")
 
         # read json input
@@ -125,19 +126,24 @@ class compute(object):
                 'user_answers',
                 'user_data',
             )
-        except KeyError: # can be raised from storify if miss some required fields
+        except KeyError, ex: # can be raised from storify if miss some required fields
+            logging.error("BadRequest: required field '%s' is missing" % ex)
             raise web.BadRequest
 
         if 'name' not in input.user_data:
+            logging.error("BadRequest: required field 'name' is missing in 'user_data'")
             raise web.BadRequest("User name field not found")
 
         if 'email' not in input.user_data:
+            logging.error("BadRequest: required field 'email' is missing in 'user_data'")
             raise web.BadRequest("User email field not found")
         elif not helpers.regexp(r"[^@]+@[^@]+\.[^@]+",input.user_data['email']):
+            logging.error("BadRequest: required field 'email' is not valid in 'user_data'")
             raise web.BadRequest("User email is invalid")
 
         if not isinstance(input.user_answers, dict) \
             or len(input.user_answers) != len(current_status.questions):
+            logging.error("BadRequest: User has answered to olny %d questions out of %d" % (len(input.user_answers), len(current_status.questions)))
             raise web.BadRequest("User have to answer to all questions")
 
         # convert all to integers
@@ -146,6 +152,7 @@ class compute(object):
             user_answers[int(k)] = int(v)
 
         if set(user_answers) != current_status.questions:
+            logging.error("BadRequest: User responded to questions that are not in the configuration. %s != %s", (set(user_answers), current_status.questions))
             raise web.BadRequest("User have to answer to right questions")
 
         user_answers = current_status.prepare_answers(user_answers)
@@ -166,12 +173,6 @@ class compute(object):
 
         # TODO: send results to rabbit with user-data (email,name,ip,referral)
         send_results(code,input.user_data,dict(zip(current_status.questions,user_answers)), results)
-#        print
-#        print 'user_data: ', input.user_data
-#        print 'user_answers: ', user_answers
-#        print 'results: ', results
-#        print 'code: ', ccode
-
 
         # prepare json response
         web.header('Content-Type', 'application/json')
