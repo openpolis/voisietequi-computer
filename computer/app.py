@@ -146,12 +146,15 @@ class compute(object):
             logger.error("BadRequest: required field 'name' is missing in 'user_data'")
             raise web.BadRequest("User name field not found")
 
-        if 'email' not in input.user_data:
-            logger.error("BadRequest: required field 'email' is missing in 'user_data'")
-            raise web.BadRequest("User email field not found")
-        elif not helpers.regexp(r"[^@]+@[^@]+\.[^@]+",input.user_data['email']):
-            logger.error("BadRequest: required field 'email' is not valid in 'user_data'")
-            raise web.BadRequest("User email is invalid")
+        wants_newsletter = 'wants_newsletter' in input.user_data and input.user_data['wants_newsletter']
+
+        if wants_newsletter:
+            if 'email' not in input.user_data:
+                logger.error("BadRequest: required field 'email' is missing in 'user_data'")
+                raise web.BadRequest("User email field not found")
+            elif not helpers.regexp(r"[^@]+@[^@]+\.[^@]+",input.user_data['email']):
+                logger.error("BadRequest: required field 'email' is not valid in 'user_data'")
+                raise web.BadRequest("User email is invalid")
 
         if not isinstance(input.user_answers, dict) \
             or len(input.user_answers) != len(current_status.questions):
@@ -179,7 +182,7 @@ class compute(object):
         input.user_data['ip_address'] = web.ctx.ip
         input.user_data['referer'] = web.ctx.env.get('HTTP_REFERER', '')
         input.user_data['agent'] = web.ctx.env.get('HTTP_USER_AGENT', '')
-        input.user_data['wants_newsletter'] = 'wants_newsletter' in input.user_data and input.user_data['wants_newsletter']
+        input.user_data['wants_newsletter'] = wants_newsletter
 
         # generate computation code
         code = helpers.md5()
