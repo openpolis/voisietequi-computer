@@ -40,6 +40,7 @@ def var(val, default=None):
 
 PACKAGE_PATH = os.path.dirname(__file__)
 REPOSITORY_PATH = os.path.dirname(PACKAGE_PATH)
+LOGGING_CONF_PATH = os.path.join(REPOSITORY_PATH,'logging.conf')
 
 # load external configuration ( see .env file )
 read_env(REPOSITORY_PATH)
