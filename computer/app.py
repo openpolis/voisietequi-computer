@@ -180,6 +180,8 @@ class compute(object):
         )
 
         input.user_data['ip_address'] = web.ctx.ip
+        if not input.user_data['ip_address'] or input.user_data['ip_address'] == '127.0.0.1':
+            input.user_data['ip_address'] = web.ctx.env.get('X-REAL-IP',web.ctx.ip)
         input.user_data['referer'] = web.ctx.env.get('HTTP_REFERER', '')
         input.user_data['agent'] = web.ctx.env.get('HTTP_USER_AGENT', '')
         input.user_data['wants_newsletter'] = wants_newsletter
