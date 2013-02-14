@@ -159,6 +159,12 @@ class compute(object):
         if not isinstance(input.user_answers, dict) \
             or len(input.user_answers) != len(current_status.questions):
             logger.error("BadRequest: User has answered to olny %d questions out of %d" % (len(input.user_answers), len(current_status.questions)))
+            web.sendmail('no-reply@voisietequi.it', ['guglielmo.celata@gmail.com', 'daniele.faraglia@gmail.com'],
+                         'Computer Error', """
+                Computer Error: User has answered to olny %d questions out of %d
+                INPUT: %s
+                QUESTIONS: %s
+            """ % (len(input.user_answers), len(current_status.questions), input, current_status.questions))
             raise web.BadRequest("User have to answer to all questions")
 
         # convert all to integers
