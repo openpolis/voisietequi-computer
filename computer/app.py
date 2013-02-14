@@ -90,6 +90,7 @@ save_queue = config.MQ_PREFIX+'save'
 channel.queue_declare(queue=save_queue, durable=True)
 channel.queue_bind(exchange=config.MQ_EXCHANGE, queue=save_queue)
 
+
 def send_results(code,user_data,user_answers, results):
 
     channel.basic_publish(
@@ -104,6 +105,7 @@ def send_results(code,user_data,user_answers, results):
     )
     logger.info("Results sent")
 
+
 def f():
     try:
         channel.start_consuming()
@@ -114,6 +116,7 @@ def f():
 multiprocessing.Process(target=f).start()
 
 logger.info("To exit press CTRL+C")
+
 
 class compute(object):
 
@@ -158,13 +161,19 @@ class compute(object):
 
         if not isinstance(input.user_answers, dict) \
             or len(input.user_answers) != len(current_status.questions):
-            logger.error("BadRequest: User has answered to olny %d questions out of %d" % (len(input.user_answers), len(current_status.questions)))
+            logger.error("BadRequest: User has answered to only %d questions out of %d" % (len(input.user_answers), len(current_status.questions)))
+            ip_address = web.ctx.ip
+            if not ip_address or ip_address == '127.0.0.1':
+                ip_address = web.ctx.env.get('HTTP_X_FORWARDED_FOR',web.ctx.ip)
             web.sendmail('no-reply@voisietequi.it', ['guglielmo.celata@gmail.com', 'daniele.faraglia@gmail.com'],
                          'Computer Error', """
-                Computer Error: User has answered to olny %d questions out of %d
+                Computer Error: User has answered to only %d questions out of %d
+                IP: %s
+                AGENT: %s
+                REQUEST: %s
                 INPUT: %s
                 QUESTIONS: %s
-            """ % (len(input.user_answers), len(current_status.questions), input, current_status.questions))
+            """ % (len(input.user_answers), len(current_status.questions), ip_address, web.ctx.env.get('HTTP_USER_AGENT', ''), web.data(), input, current_status.questions))
             raise web.BadRequest("User have to answer to all questions")
 
         # convert all to integers
