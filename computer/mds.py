@@ -77,8 +77,8 @@ def execute(entities, values_dict):
     coords = []
     for i, v in enumerate(vals):
         v_coords = [entities[i],
-                    float(vals[1] * vectors[i][1]),
-                    float(vals[2] * vectors[i][2])
+                    float(vals[2] * vectors[i][2]),
+                    float(vals[1] * vectors[i][1])
         ]
         coords.append(v_coords)
 
