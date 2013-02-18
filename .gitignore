@@ -38,3 +38,6 @@ nosetests.xml
 .mr.developer.cfg
 .project
 .pydevproject
+
+provisioning/uwsgi*.ini
+status.pickle.dump
