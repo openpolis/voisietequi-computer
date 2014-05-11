@@ -40,16 +40,17 @@ def var(val, default=None):
 
 PACKAGE_PATH = os.path.dirname(__file__)
 REPOSITORY_PATH = os.path.dirname(PACKAGE_PATH)
-LOGGING_CONF_PATH = os.path.join(REPOSITORY_PATH,'logging.conf')
+LOGGING_CONF_PATH = os.path.join(REPOSITORY_PATH,'logging.ini')
 
 # load external configuration ( see .env file )
 read_env(REPOSITORY_PATH)
 
 # init configurations
 DEBUG = bool_var('DEBUG')
-ELECTION_CODE = var('VSQ_ELECTION_CODE')
+ELECTION_CODE = var('VSQ_ELECTION_CODE', 'test00')
 STATUS_PATH = var('VSQ_STATUS_PATH', os.path.join(REPOSITORY_PATH,'status.pickle.dump'))
-MQ_URL = var('MQ_URL', 'amqp://guest:guest@localhost:5672/')
-MQ_EXCHANGE = var('MQ_EXCHANGE', 'voisietequi')
-MQ_QUEUE = var('MQ_QUEUE', 'vsq')
-MQ_PREFIX = MQ_QUEUE + '.' + ELECTION_CODE + '.'
+SITE_HOST = var('VSQ_ELECTION_CODE', 'local.vsq.it')
+# MQ_URL = var('MQ_URL', 'amqp://guest:guest@localhost:5672/')
+# MQ_EXCHANGE = var('MQ_EXCHANGE', 'voisietequi')
+# MQ_QUEUE = var('MQ_QUEUE', 'vsq')
+# MQ_PREFIX = MQ_QUEUE + '.' + ELECTION_CODE + '.'

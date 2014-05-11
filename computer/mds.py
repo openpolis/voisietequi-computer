@@ -62,10 +62,6 @@ def centering_matrix(n):
 
 
 def execute(entities, values_dict):
-#    print
-#    print 'execute'
-#    print 'entities',entities
-#    print 'values_dict', values_dict
 
     # costruisce matrice delle distanze
     X = pairwise_distances(values_dict)

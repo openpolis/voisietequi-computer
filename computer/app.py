@@ -1,8 +1,15 @@
+import sys
+print sys.path
 import web
 import json
-import config, status, mds, helpers
+from computer import config
+from computer import status
+from computer import mds
+from computer import helpers
+from computer.proc import computer_proc
 
 urls = (
+    '/', 'index',
     '/computation/?', 'compute',
     '/coordinate_partiti/(\w+)/?', 'coordinates',
 )
@@ -14,109 +21,28 @@ web.config.debug = config.DEBUG
 app = web.application(urls, globals())
 current_status = status.ComputerStatus(config.ELECTION_CODE)
 
-import pika
-import multiprocessing
-from datetime import datetime
-try:
-    import cPickle as pickle
-except ImportError:
-    import pickle
-import logging
-# logging.basicConfig()
-import logging.config
-logging.config.fileConfig(config.LOGGING_CONF_PATH)
-logger = logging.getLogger('computer')
+logger = helpers.get_logger('computer')
 
-try:
-    connection = pika.BlockingConnection(pika.URLParameters(config.MQ_URL))
-    channel = connection.channel()
-except pika.exceptions.AMQPConnectionError, e:
-    logger.error('Cannot open a channel with MQ server: ' + str(e))
-    exit()
-
-logger.debug('Connected to ' + config.MQ_URL)
-
-channel.exchange_declare(exchange=config.MQ_EXCHANGE, exchange_type='topic')
-
-result = channel.queue_declare(exclusive=True)
-queue_name = result.method.queue
-
-channel.queue_bind(exchange=config.MQ_EXCHANGE,
-    queue=queue_name,
-    routing_key=config.MQ_PREFIX+'discover')
+computer = computer_proc.ComputerProcess(bind_addr='127.0.0.1:5556', site_addr='%s:5557' % config.SITE_HOST)
+computer.start()
 
 
-def callback_deliver(ch, method, properties, body):
-    logger.info("Deliver message received (%r:%r)" % (method.routing_key, pickle.loads(body) ))
+def send_results(code, user_data, user_answers, results):
 
-    import socket
-    ch.basic_publish(exchange='',
-        routing_key=properties.reply_to,
-        body=pickle.dumps({
-            'last_update': current_status.last_update,
-            'timestamp': datetime.now(),
-            'host':socket.gethostname()
-        })
-    )
-#    ch.basic_ack(delivery_tag = method.delivery_tag)
+    computer_proc.save_results('tcp://%s:5557' % config.SITE_HOST, config.ELECTION_CODE, {
+        'code': code,
+        'user_data': user_data,
+        'user_answers': user_answers,
+        'results': results,
+    })
 
-channel.basic_consume(
-    consumer_callback=callback_deliver,
-    queue=queue_name,
-    no_ack=True
-)
-
-
-# configuration
-def callback_configure(ch, method, properties, body):
-    data = pickle.loads(body)
-    logger.info("Configuration received (%r:%r)" % (method.routing_key, data['election_code']))
-    current_status.save(data['configuration'])
-    ch.basic_ack(delivery_tag = method.delivery_tag)
-#channel.queue_declare(config.MQ_PREFIX+'configure')
-queue_name = channel.queue_declare(exclusive=True).method.queue
-binding_key = config.MQ_PREFIX+'configure'
-channel.queue_bind(
-    queue= queue_name,
-    exchange= config.MQ_EXCHANGE,
-    routing_key= binding_key
-)
-channel.basic_consume(
-    consumer_callback=callback_configure,
-    queue=queue_name,
-)
-
-save_queue = config.MQ_PREFIX+'save'
-channel.queue_declare(queue=save_queue, durable=True)
-channel.queue_bind(exchange=config.MQ_EXCHANGE, queue=save_queue)
-
-
-def send_results(code,user_data,user_answers, results):
-
-    channel.basic_publish(
-        exchange=config.MQ_EXCHANGE,
-        routing_key= save_queue,
-        body= pickle.dumps({
-            'code':code,'user_data':user_data,'user_answers':user_answers,'results':results
-        }),
-        properties=pika.BasicProperties(
-            delivery_mode = 2, # make message persistent
-        )
-    )
     logger.info("Results sent")
 
 
-def f():
-    try:
-        channel.start_consuming()
-    except KeyboardInterrupt:
-        channel.stop_consuming()
-        connection.close()
+class index(object):
 
-multiprocessing.Process(target=f).start()
-
-logger.info("To exit press CTRL+C")
-
+    def GET(self):
+        return "Hello World!"
 
 class compute(object):
 
@@ -182,7 +108,7 @@ class compute(object):
             user_answers[int(k)] = int(v)
 
         if set(user_answers) != current_status.questions:
-            logger.error("BadRequest: User responded to questions that are not in the configuration. %s != %s", (set(user_answers), current_status.questions))
+            logger.error("BadRequest: User responded to questions that are not in the configuration. %s != %s", set(user_answers), current_status.questions)
             raise web.BadRequest("User have to answer to right questions")
 
         user_answers = current_status.prepare_answers(user_answers)
@@ -234,6 +160,9 @@ class coordinates(object):
             logger.error("BadRequest: This computer is configured to handle '{0}' as election code, request has '{1}'".format(election_code,config.ELECTION_CODE))
             raise web.BadRequest("Invalid election code")
 
+        print current_status.parties
+        print current_status.answers
+
         results = mds.execute(
             current_status.parties,
             current_status.answers
@@ -260,3 +189,5 @@ if __name__ == "__main__":
     app.run()
 
 application = app.wsgifunc()
+
+computer.join()

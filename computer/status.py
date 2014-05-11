@@ -22,16 +22,24 @@ class ComputerStatus(object):
         print "#" * 10, "ComputerStatus(%s)" % election_code, "#" * 10
         self.load()
 
+    def clean_positions(self, positions):
+        new_positions = {}
+        for party in positions.keys():
+            new_positions[party] = {}
+            for key in positions[party].keys():
+                new_positions[party][int(key)] = positions[party][key]
+        return new_positions
 
     def save(self, parties_positions):
         """persist new status, then load it"""
         now = datetime.now()
-        self.load(parties_positions, now)
+        cleaned_positions = self.clean_positions(parties_positions)
+        self.load(cleaned_positions, now)
         pickle.dump( {
-            'party_positions': parties_positions,
+            'party_positions': cleaned_positions,
             'updated_at': now
-        }, open( config.STATUS_PATH, "wb" ) )
-        print "Status saved"
+        }, open( config.STATUS_PATH, "wb" ))
+        print "Status saved %s" % cleaned_positions
 
 
     def load(self, parties_positions=None, updated_at=None):
@@ -77,7 +85,7 @@ class ComputerStatus(object):
 
         self.is_configured = True
         self.last_update = datetime.now() if not updated_at else updated_at
-        print "Status loaded"
+        print "Status loaded: %s" % parties_positions
 
 
     def prepare_answers(self, dict_of_answers, questions=None):
