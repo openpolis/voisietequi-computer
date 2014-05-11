@@ -3,6 +3,7 @@ import zmq
 from computer.proc import base
 from computer import status
 from computer import config
+from computer.status import InvalidComputerStatus
 
 
 def save_results(computer_addr, election_code, result):
@@ -16,11 +17,11 @@ def save_results(computer_addr, election_code, result):
 
 class ComputerProcess(base.ZmqProcess):
 
-    def __init__(self, bind_addr, site_addr):
+    def __init__(self, push_addr, sub_addr):
         super(ComputerProcess, self).__init__()
 
-        self.bind_addr = bind_addr
-        self.site_addr = site_addr
+        self.push_addr = push_addr
+        self.sub_addr = sub_addr
         self.push_stream = None
         self.sub_stream = None
         self.status = status.ComputerStatus(config.ELECTION_CODE)
@@ -32,13 +33,13 @@ class ComputerProcess(base.ZmqProcess):
         super(ComputerProcess, self).setup()
 
         # Create the stream and add the message handler
-        self.push_stream, _ = self.stream(zmq.PUSH, self.site_addr, bind=False)
+        self.push_stream, _ = self.stream(zmq.PUSH, self.push_addr, bind=False)
 
-        self.sub_stream, _ = self.stream(zmq.SUB, self.bind_addr, bind=False)
+        self.sub_stream, _ = self.stream(zmq.SUB, self.sub_addr, bind=False)
         self.sub_stream.on_recv(SubStreamHandler(self.status, self.push_stream))
 
 
-        print "Computer connected:", self.bind_addr
+        print "Computer connected:", self.push_addr
 
     def run(self):
         """Sets up everything and starts the event loop."""
@@ -61,18 +62,23 @@ class SubStreamHandler(base.MessageHandler):
     def configure(self, election_code, **party_positions):
         print "Received a configuration: %s %s" % (election_code, party_positions)
 
-        # save new configuration
-        self._computer_status.save(party_positions)
+        try:
+            # save new configuration
+            self._computer_status.save(party_positions)
+            configured = True
+        except InvalidComputerStatus:
+            configured = False
+            print "Invalid status: %s" % party_positions
 
         # reply to server
-        self._push_stream.send_json(['computer_configured', [], {}])
+        self._push_stream.send_json(['computer_configured', [], {'configured': configured}])
 
 
 
 if __name__ == "__main__":
 
-    cpu1 = ComputerProcess(bind_addr='127.0.0.1:5556', site_addr='127.0.0.1:5557')
-    cpu2 = ComputerProcess(bind_addr='127.0.0.1:5556', site_addr='127.0.0.1:5557')
+    cpu1 = ComputerProcess(push_addr='127.0.0.1:5557', sub_addr='127.0.0.1:5556')
+    cpu2 = ComputerProcess(push_addr='127.0.0.1:5557', sub_addr='127.0.0.1:5556')
 
     cpu1.start(), cpu2.start()
 

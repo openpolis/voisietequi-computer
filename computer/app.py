@@ -23,7 +23,7 @@ current_status = status.ComputerStatus(config.ELECTION_CODE)
 
 logger = helpers.get_logger('computer')
 
-computer = computer_proc.ComputerProcess(bind_addr='127.0.0.1:5556', site_addr='%s:5557' % config.SITE_HOST)
+computer = computer_proc.ComputerProcess(push_addr='%s:5557' % config.SITE_HOST, sub_addr='%s:5556' % config.SITE_HOST)
 computer.start()
 
 
