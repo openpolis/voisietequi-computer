@@ -3,6 +3,7 @@ import zmq
 from computer.proc import base
 from computer import status
 from computer import config
+from computer import helpers
 from computer.status import InvalidComputerStatus
 
 
@@ -25,6 +26,7 @@ class ComputerProcess(base.ZmqProcess):
         self.push_stream = None
         self.sub_stream = None
         self.status = status.ComputerStatus(config.ELECTION_CODE)
+        self.logger = helpers.get_logger('computer')
 
     def setup(self):
         """Sets up PyZMQ and creates all streams."""
@@ -36,31 +38,32 @@ class ComputerProcess(base.ZmqProcess):
         self.push_stream, _ = self.stream(zmq.PUSH, self.push_addr, bind=False)
 
         self.sub_stream, _ = self.stream(zmq.SUB, self.sub_addr, bind=False)
-        self.sub_stream.on_recv(SubStreamHandler(self.status, self.push_stream))
+        self.sub_stream.on_recv(SubStreamHandler(self.status, self.push_stream, self.logger))
 
 
-        print "Computer connected:", self.push_addr
+        self.logger.info("Computer connected: push %s / sub %s" % (self.push_addr, self.sub_addr))
 
     def run(self):
         """Sets up everything and starts the event loop."""
-        print ("Run Computer process")
+        self.logger.info("Run Computer process")
         self.setup()
         self.loop.start()
 
     def stop(self):
         """Stops the event loop."""
-        print ("Stop Computer process")
+        self.logger.info("Stop Computer process")
         self.loop.stop()
 
 class SubStreamHandler(base.MessageHandler):
     """Handels messages arrvinge at the ComputerProcess's REP stream."""
-    def __init__(self, computer_status, push_stream):
+    def __init__(self, computer_status, push_stream, logger):
         super(SubStreamHandler, self).__init__()
         self._computer_status = computer_status
         self._push_stream = push_stream
+        self.logger = logger
 
     def configure(self, election_code, **party_positions):
-        print "Received a configuration: %s %s" % (election_code, party_positions)
+        self.logger.info("Received a configuration: %s %s" % (election_code, party_positions))
 
         try:
             # save new configuration
@@ -68,11 +71,11 @@ class SubStreamHandler(base.MessageHandler):
             configured = True
         except InvalidComputerStatus:
             configured = False
-            print "Invalid status: %s" % party_positions
+            self.logger.warning("Invalid status: %s" % party_positions)
 
         # reply to server
         self._push_stream.send_json(['computer_configured', [], {'configured': configured}])
-
+        self.logger.debug("Replay to configurer: %s" % configured)
 
 
 if __name__ == "__main__":
