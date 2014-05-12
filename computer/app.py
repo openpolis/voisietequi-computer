@@ -23,8 +23,9 @@ current_status = status.ComputerStatus(config.ELECTION_CODE)
 
 logger = helpers.get_logger('computer')
 
-computer = computer_proc.ComputerProcess(push_addr='%s:5557' % config.SITE_HOST, sub_addr='%s:5556' % config.SITE_HOST)
-computer.start()
+def start_computer_proc():
+    computer = computer_proc.ComputerProcess(push_addr='%s:5557' % config.SITE_HOST, sub_addr='%s:5556' % config.SITE_HOST)
+    computer.start()
 
 
 def send_results(code, user_data, user_answers, results):
@@ -190,4 +191,4 @@ if __name__ == "__main__":
 
 application = app.wsgifunc()
 
-computer.join()
+start_computer_proc()
