@@ -24,13 +24,27 @@ current_status = status.ComputerStatus(config.ELECTION_CODE)
 logger = helpers.get_logger('computer')
 
 def start_computer_proc():
-    computer = computer_proc.ComputerProcess(push_addr='%s:5557' % config.SITE_HOST, sub_addr='%s:5556' % config.SITE_HOST)
+    """ starts the process that can receive and reply to config messages
+    
+    config messages are received on a PUB_SUB channel (sent manually on a server), 
+    reply messages contain the configuration and are sent through a PUSH_PULL channel 
+    
+    the process lives with the application
+    """
+    computer = computer_proc.ComputerProcess(config.PUSH_ADDR, config.SUB_ADDR)
     computer.start()
 
 
 def send_results(code, user_data, user_answers, results):
+    """ send the results of a required computation back to the servers (receivers)
+    
+    message contains the results of the computation, with coordinates, and other meta-info
+    the message is sent through the PUSH_PULL channel
+    
+    a saver (PULL) daemon needs to be running on the other end
+    """
 
-    computer_proc.save_results('tcp://%s:5557' % config.SITE_HOST, config.ELECTION_CODE, {
+    computer_proc.save_results(config.PUSH_ADDR, config.ELECTION_CODE, {
         'code': code,
         'user_data': user_data,
         'user_answers': user_answers,
@@ -38,6 +52,7 @@ def send_results(code, user_data, user_answers, results):
     })
 
     logger.info("Results sent")
+    
 
 
 class index(object):
@@ -131,7 +146,7 @@ class compute(object):
         # generate computation code
         code = helpers.md5()
 
-        # TODO: send results to rabbit with user-data (email,name,ip,referral)
+        # send results to zmq 
         send_results(code,input.user_data,dict(zip(current_status.questions,user_answers)), results)
 
         # prepare json response
