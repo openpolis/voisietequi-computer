@@ -7,10 +7,10 @@ from computer import helpers
 from computer.status import InvalidComputerStatus
 
 
-def save_results(computer_addr, election_code, result):
+def save_results(push_addr, election_code, result):
     context = zmq.Context()
     save_sender = context.socket(zmq.PUSH)
-    save_sender.connect(computer_addr)
+    save_sender.connect(push_addr)
 
     # send message to sender
     save_sender.send_json(['save_results', [election_code], result])
@@ -34,9 +34,10 @@ class ComputerProcess(base.ZmqProcess):
 
         super(ComputerProcess, self).setup()
 
-        # Create the stream and add the message handler
+        # Create the stream to push config reply messages and results
         self.push_stream, _ = self.stream(zmq.PUSH, self.push_addr, bind=False)
 
+        # Create the stream to receive and handle configuration messages
         self.sub_stream, _ = self.stream(zmq.SUB, self.sub_addr, bind=False)
         self.sub_stream.on_recv(SubStreamHandler(self.status, self.push_stream, self.logger))
 
@@ -55,7 +56,7 @@ class ComputerProcess(base.ZmqProcess):
         self.loop.stop()
 
 class SubStreamHandler(base.MessageHandler):
-    """Handels messages arrvinge at the ComputerProcess's REP stream."""
+    """Handles messages arrvinge at the ComputerProcess's REP stream."""
     def __init__(self, computer_status, push_stream, logger):
         super(SubStreamHandler, self).__init__()
         self._computer_status = computer_status

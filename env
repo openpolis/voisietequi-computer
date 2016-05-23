@@ -1,0 +1,6 @@
+DEBUG=True
+VSQ_ELECTION_CODE=europee2014
+
+# add to uwsgi.ini for multiple instances
+# PUSH_ADDR=europee2014.voisietequi.it:5550
+# SUB_ADDR=europee2014.voisietequi.it:5540
