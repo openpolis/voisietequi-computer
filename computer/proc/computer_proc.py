@@ -10,7 +10,7 @@ from computer.status import InvalidComputerStatus
 def save_results(push_addr, election_code, result):
     context = zmq.Context()
     save_sender = context.socket(zmq.PUSH)
-    save_sender.connect(push_addr)
+    save_sender.connect("tcp://%s" % (push_addr,))
 
     # send message to sender
     save_sender.send_json(['save_results', [election_code], result])
