@@ -173,7 +173,7 @@ class coordinates(object):
             raise web.InternalError("Computer is not configured")
 
         if election_code != config.ELECTION_CODE:
-            logger.error("BadRequest: This computer is configured to handle '{0}' as election code, request has '{1}'".format(election_code,config.ELECTION_CODE))
+            logger.error("BadRequest: This computer is configured to handle '{0}' as election code, request has '{1}'".format(config.ELECTION_CODE, election_code))
             raise web.BadRequest("Invalid election code")
 
         print current_status.parties
