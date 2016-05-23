@@ -42,5 +42,5 @@ nosetests.xml
 .project
 .pydevproject
 
-provisioning/uwsgi*.ini
+# provisioning/uwsgi*.ini
 status.pickle.dump
