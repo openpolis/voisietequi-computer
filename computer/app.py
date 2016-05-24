@@ -19,9 +19,14 @@ if config.DEBUG:
 
 web.config.debug = config.DEBUG
 app = web.application(urls, globals())
+
+
 current_status = status.ComputerStatus(config.ELECTION_CODE)
 
 logger = helpers.get_logger('computer')
+
+logger.debug("status path: " + config.STATUS_PATH)
+logger.debug("election code: " + config.ELECTION_CODE)
 
 def start_computer_proc():
     """ starts the process that can receive and reply to config messages
