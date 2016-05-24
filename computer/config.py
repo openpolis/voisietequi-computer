@@ -48,7 +48,7 @@ read_env(REPOSITORY_PATH)
 # init configurations
 DEBUG = bool_var('DEBUG')
 ELECTION_CODE = var('VSQ_ELECTION_CODE', 'test00')
-STATUS_PATH = var('VSQ_STATUS_PATH', os.path.join(REPOSITORY_PATH,'status.pickle.dump'))
+STATUS_PATH = var('VSQ_STATUS_PATH', os.path.join(REPOSITORY_PATH,'{0}.status.pickle.dump'.format(ELECTION_CODE)))
 
 # SITE_HOST = var('VSQ_SITE_HOST', 'local.vsq.it')
 PUSH_ADDR = var('PUSH_ADDR', 'test.vsq.dev:5557')
